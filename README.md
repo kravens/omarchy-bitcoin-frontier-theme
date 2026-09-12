@@ -18,7 +18,11 @@ omarchy theme set bitcoin-frontier
 ## Contents
 
 - `colors.toml` — palette (accent `#f7931a`, background `#12141a`)
-- `backgrounds/` — three scenes, each as 3840x2160 and 2160x3840
+- `backgrounds/` — three scenes at 3840x2160 (`1-moonrise` is the default and
+  first in the cycle). `backgrounds/portrait/` holds 2160x3840 twins under the
+  same file names; Omarchy's picker and cycle ignore the subfolder, and a
+  background plugin that knows the convention (e.g. `kravens.background`)
+  shows the twin on portrait screens.
 - `icons.theme` — Yaru-red-dark
 - `hyprland.lua` — orange borders, fully opaque focused window. Only applies
   when the theme lives in `~/.config/omarchy/themes` by hand; Omarchy drops

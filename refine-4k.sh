@@ -34,20 +34,28 @@ mkdir -p "$WORK"
 
 STYLE='Print style, matching the poster reference exactly: a two-colour risograph screen print -- print-white ink on deep charcoal-blue paper (#12141a) with fine stochastic spray-ink film grain everywhere, visible ink speckle in the midtones and highlights, matte paper texture. The scene is rendered photoreal first (real fabric, metal, foil, antenna struts, regolith, crater shadows, real nebula structure, crisp pinpoint stars) and then printed through that grain. The Bitcoin coin is a perfectly flat disc in bitcoin orange #f7931a printed with the same heavy ink grain and a dark charcoal B glyph -- no shadow, no bevel, no thickness. No halftone dot grid, no smooth digital gradients, no plastic CGI look, no text, no watermark.'
 
+# Output names (moonrise first: it is the default wallpaper). The archived v1/v2
+# sources under ~/Pictures/bitcoin-frontier keep their original numbering.
+declare -A SRC=( [1-moonrise]=3-moonrise [2-explorer]=1-explorer [3-probe]=2-probe )
 declare -A SCENE=(
-  [1-explorer]='Lone astronaut drifting in front of a bright nebula, a single thin tether trailing to the lower left, large orange Bitcoin coin upper right.'
-  [2-probe]='Small deep-space probe with a dish antenna crossing a diagonal band of the Milky Way, large orange Bitcoin coin cropped at the lower right.'
-  [3-moonrise]='Orange Bitcoin coin rising like a sun behind the limb of the Moon, photoreal lunar surface with sharp-rimmed craters, star field above.'
+  [2-explorer]='Lone astronaut drifting in front of a bright nebula, a single thin tether trailing to the lower left, large orange Bitcoin coin upper right.'
+  [3-probe]='Small deep-space probe with a dish antenna crossing a diagonal band of the Milky Way, large orange Bitcoin coin cropped at the lower right.'
+  [1-moonrise]='Orange Bitcoin coin rising like a sun behind the limb of the Moon, photoreal lunar surface with sharp-rimmed craters, star field above.'
 )
 
-for n in ${@:-1-explorer 2-probe 3-moonrise}; do
+# Portrait twins live in backgrounds/portrait/ under the same file name, out of
+# Omarchy's picker and cycle; kravens.background maps to them per screen.
+outname() { [ "$ORIENT" = port ] && echo "portrait/$1" || echo "$1"; }
+
+for n in ${@:-1-moonrise 2-explorer 3-probe}; do
   p="$WORK/$n-$ORIENT"
-  [ -s "$OUT/$n-$ORIENT.png" ] && { echo "have $n-$ORIENT"; continue; }
+  out="$OUT/$(outname "$n").png"; mkdir -p "$(dirname "$out")"
+  [ -s "$out" ] && { echo "have $(outname "$n")"; continue; }
   echo "== $n-$ORIENT"
 
   if [ ! -s "$p-base.png" ]; then
-    magick "$V1/$n-$ORIENT.png" -resize 1600x1600 "$p-v1.jpg"
-    magick "$V2/$n-$ORIENT.png" -resize 1600x1600 "$p-v2.jpg"
+    magick "$V1/${SRC[$n]}-$ORIENT.png" -resize 1600x1600 "$p-v1.jpg"
+    magick "$V2/${SRC[$n]}-$ORIENT.png" -resize 1600x1600 "$p-v2.jpg"
     magick "$POSTER" -resize 1024x1024 "$WORK/poster.jpg"
     PPQ_EXTRA='{"image_config":{"aspect_ratio":"'$AR'","image_size":"2K"}}' \
     ppq-image "Recreate this wallpaper in $AR. Image 1 is the composition to keep exactly: same framing, scale and placement of every element, and its grainy orange coin is the coin treatment to keep. Image 2 shows the same scene with realistic surfaces: take its material realism and detail. Image 3 is the poster whose print style to match. Scene: ${SCENE[$n]} $STYLE" \
@@ -76,6 +84,6 @@ for n in ${@:-1-explorer 2-probe 3-moonrise}; do
     \( -size "$(identify -format '%[fx:w/2]x%[fx:h/2]' "$p-fit.png")" xc:gray50 -seed 7 -attenuate 1.1 +noise Gaussian -resize 200% -clamp \
        \( "$p-coinmask.png" -alpha off \) -compose Multiply -composite \
        \( "$p-coinmask.png" -alpha off -negate -evaluate multiply 0.5 \) -compose Plus -composite \) \
-    -compose Overlay -composite -depth 8 "$OUT/$n-$ORIENT.png"
-  identify "$OUT/$n-$ORIENT.png"
+    -compose Overlay -composite -depth 8 "$out"
+  identify "$out"
 done

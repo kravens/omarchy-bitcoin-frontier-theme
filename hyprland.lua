@@ -4,15 +4,25 @@
 -- alone instead of regenerating it from colors.toml -- which is why the border
 -- colours are repeated here by hand.
 
-local active_border_color = "#f7931a"
+-- Same sunrise gradient and direction as the shell popups (shell.toml).
+local active_border_color = { colors = { "rgba(f7931aee)", "rgba(e8624aee)" }, angle = 45 }
 local inactive_border_color = "rgba(595959aa)"
 
 hl.config({
   general = {
+    -- A little more paper margin than the Omarchy default (5 / 10).
+    gaps_in = 6,
+    gaps_out = 12,
+
     col = {
       active_border = active_border_color,
       inactive_border = inactive_border_color,
     },
+  },
+
+  -- Subtle rounding; the poster panels are hard-cut, so keep it small.
+  decoration = {
+    rounding = 6,
   },
 
   group = {
