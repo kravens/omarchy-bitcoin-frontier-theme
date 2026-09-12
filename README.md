@@ -31,6 +31,9 @@ omarchy theme set bitcoin-frontier
   when the theme lives in `~/.config/omarchy/themes` by hand; Omarchy drops
   `*.lua` from themes installed with `omarchy theme install` and regenerates
   them from `colors.toml`.
+- `even-sky.sh` — flattens the mottled charcoal in dark sky areas to one even
+  `#12141a` (OLED-friendly) while keeping stars, nebula, moon and coin; run
+  after `refine-4k.sh`.
 - `refine-4k.sh` — how the wallpapers were made (ppq.ai image models, then
   ImageMagick). Needs a ppq.ai key in the keyring; not needed to use the theme.
 
