@@ -37,7 +37,9 @@ added in ImageMagick. Bitcoin logo: public domain.
 ## Boot / login splash
 
 `unlock.png` is the Plymouth boot and SDDM login logo: the stock pixel-art
-OMARCHY wordmark in print white, its O replaced by a pixel bitcoin coin.
+OMARCHY wordmark in print white, its O replaced by a pixel bitcoin coin, a
+star field around it and a cratered moon limb along the bottom edge -- the
+password field sits right under that horizon. `make-splash.py` rebuilds it.
 Apply with:
 
 ```bash
