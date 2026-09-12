@@ -36,7 +36,7 @@ hl.config({
 -- Omarchy's default.hypr.windows tags every window "default-opacity" and gives
 -- it opacity "0.985 0.96", so even the focused window is slightly transparent.
 -- The theme's hyprland.lua is required after that file, so re-stating the rule
--- here wins: every window fully opaque.
-o.window({ tag = "default-opacity" }, { opacity = "1.0 1.0" })
+-- here wins: focused fully opaque, unfocused a hair below so focus still reads.
+o.window({ tag = "default-opacity" }, { opacity = "1.0 0.99" })
 -- Image editors and viewers stay opaque even when unfocused.
 o.window({ class = "^(gimp|Gimp.*|krita|pinta|org\\.gnome\\.Loupe|imv)$" }, { opacity = "1.0 1.0" })
