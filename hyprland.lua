@@ -38,3 +38,5 @@ hl.config({
 -- The theme's hyprland.lua is required after that file, so re-stating the rule
 -- here wins: active fully opaque, inactive left alone.
 o.window({ tag = "default-opacity" }, { opacity = "1.0 0.96" })
+-- Image editors and viewers stay opaque even when unfocused.
+o.window({ class = "^(gimp|Gimp.*|krita|pinta|org\\.gnome\\.Loupe|imv)$" }, { opacity = "1.0 1.0" })
