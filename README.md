@@ -21,8 +21,11 @@ omarchy theme set bitcoin-frontier
 - `backgrounds/` — three scenes at 3840x2160 (`1-moonrise` is the default and
   first in the cycle). `backgrounds/portrait/` holds 2160x3840 twins under the
   same file names; Omarchy's picker and cycle ignore the subfolder, and a
-  background plugin that knows the convention (e.g. `kravens.background`)
-  shows the twin on portrait screens.
+  background plugin that knows the convention (e.g. `kravens.background`, or
+  Omarchy itself once omacom/omarchy#11534 lands) shows the twin on portrait
+  screens:
+
+  ![landscape and portrait screens sharing one background link](docs/portrait-twins.jpg)
 - `icons.theme` — Yaru-red-dark
 - `hyprland.lua` — orange borders, fully opaque focused window. Only applies
   when the theme lives in `~/.config/omarchy/themes` by hand; Omarchy drops
