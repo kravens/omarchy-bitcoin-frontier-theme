@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Build unlock.png: the stock OMARCHY pixel wordmark with its O swapped for a
-bitcoin coin, a sparse star field around it and a cratered moon limb along the
-bottom edge. Plymouth/SDDM put the password field 40 px under this image, so
-the limb reads as the horizon the field sits on. 10 px cells, like the stock
-logo. Needs ImageMagick and /usr/share/plymouth/themes/omarchy/logo.png.
+bitcoin coin, over a star field and a cratered moon limb along the bottom
+edge. Plymouth/SDDM put the password field 40 px under this image, so the limb
+reads as the horizon the field sits on. Wordmark cells are 10 px like the
+stock logo; the backdrop is drawn on 5 px cells. The backdrop ships as
+splash-cells.png (320x128, palette-quantised from an openai/gpt-5.4-image-2
+redraw via ppq.ai); without it a plainer procedural backdrop is generated.
+Needs ImageMagick and /usr/share/plymouth/themes/omarchy/logo.png.
 
     ./make-splash.py && omarchy plymouth preview '#12141a' '#e2e4ea' unlock.png preview-unlock.png
 """
@@ -73,9 +76,15 @@ pam(coin, f"{tmp}/coin.pam"); pam(bg, f"{tmp}/bg.pam")
 m = lambda *a: subprocess.run(["magick", *a], check=True)
 m(f"{tmp}/coin.pam", "-filter", "point", "-resize", f"{CELL*100}%", f"{tmp}/coin.png")
 m(f"{tmp}/bg.pam",   "-filter", "point", "-resize", f"{CELL*100}%", f"{tmp}/bg.png")
-m(STOCK, "-crop", "691x188+109+0", "+repage", "-fill", "#e2e4ea", "-colorize", "100", f"{tmp}/marchy.png")
+# the stock logo has anti-aliased edges; threshold alpha so every cell is hard
+m(STOCK, "-crop", "691x188+109+0", "+repage", "-fill", "#e2e4ea", "-colorize", "100",
+  "-channel", "A", "-threshold", "50%", "+channel", f"{tmp}/marchy.png")
 m("-size", "901x190", "xc:none", f"{tmp}/coin.png", "-geometry", "+0+0", "-composite",
   f"{tmp}/marchy.png", "-geometry", "+210+1", "-composite", f"{tmp}/wordmark.png")
+here = os.path.dirname(os.path.abspath(__file__))
+cells = os.path.join(here, "splash-cells.png")
+if os.path.exists(cells):
+    m(cells, "-filter", "point", "-resize", "500%", f"{tmp}/bg.png")
 m(f"{tmp}/bg.png", f"{tmp}/wordmark.png", "-geometry", f"+{BX*CELL}+{BY*CELL}", "-composite",
-  os.path.join(os.path.dirname(os.path.abspath(__file__)), "unlock.png"))
+  os.path.join(here, "unlock.png"))
 print("wrote unlock.png")
