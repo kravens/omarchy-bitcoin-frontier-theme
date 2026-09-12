@@ -31,6 +31,17 @@ omarchy theme set bitcoin-frontier
 - `refine-4k.sh` — how the wallpapers were made (ppq.ai image models, then
   ImageMagick). Needs a ppq.ai key in the keyring; not needed to use the theme.
 
+## Companion bar widget
+
+[BTClock](https://github.com/kravens/omarchy-btclock) (`kravens.btclock`, listed in the
+[Omarchy plugin marketplace](https://plugins.omarchy.org/plugin.html?id=kravens.btclock))
+shows block height, fiat price, Moscow time and mempool fee rates on
+e-paper-style panels in the bar, in this theme's palette. Optional:
+
+```bash
+omarchy plugin add https://github.com/kravens/omarchy-btclock --enable
+```
+
 ## Wallpapers
 
 Generated with `openai/gpt-5.4-image-2` (look) and
