@@ -51,6 +51,8 @@ added in ImageMagick. Bitcoin logo: public domain.
 
 ## Boot / login splash
 
+![boot and login splash](preview-unlock.png)
+
 `unlock.png` is the Plymouth boot and SDDM login logo: the stock pixel-art
 OMARCHY wordmark in print white, its O replaced by a pixel bitcoin coin, over
 a dithered star field, a faint Milky Way band and a cratered moon limb along
