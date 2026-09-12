@@ -1,0 +1,33 @@
+# bitcoin-frontier -- sampled from the "Navigating the Bitcoin Frontier"
+# risograph poster: charcoal-blue space, print white, coral-orange headline ink.
+mode = "dark"
+
+accent = "#f7931a"
+selection = "#2b2f3a"
+muted = "#4a4f5c"
+
+background = "#12141a"
+dark_background = "#0d0f14"
+darker_background = "#08090d"
+lighter_background = "#1c1f28"
+
+foreground = "#d6d9e0"
+dark_foreground = "#8b909d"
+light_foreground = "#e2e4ea"
+bright_foreground = "#f0f2f6"
+
+red = "#e8624a"
+yellow = "#d9a441"
+orange = "#f7931a"
+green = "#7f9e7a"
+cyan = "#6d97a3"
+blue = "#7a8ba8"
+magenta = "#b08297"
+brown = "#8a5c48"
+
+bright_red = "#ff7d63"
+bright_yellow = "#f0bd5c"
+bright_green = "#98b892"
+bright_cyan = "#86b0bd"
+bright_blue = "#95a6c2"
+bright_magenta = "#c99bae"
