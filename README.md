@@ -33,3 +33,13 @@ Generated with `openai/gpt-5.4-image-2` (look) and
 `google/gemini-3.1-flash-image-preview` (native 4K pass) via ppq.ai, from the
 theme's earlier drafts and the poster as style reference. Grain on the coin is
 added in ImageMagick. Bitcoin logo: public domain.
+
+## Boot / login splash
+
+`unlock.png` is the Plymouth boot and SDDM login logo: the stock pixel-art
+OMARCHY wordmark in print white, its O replaced by a pixel bitcoin coin.
+Apply with:
+
+```bash
+omarchy plymouth set-by-theme bitcoin-frontier
+```
